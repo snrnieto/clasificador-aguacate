@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clasificación de patologias aguacate hass</title>
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+</head>
+<body>
+    <h1>Clasificador de patologias de aguacate hass</h1>
+    <input type="file" id="file" accept="image/jpeg, image/png" onchange="readURL(this);">
+    <button onclick="send()">Enviar</button>
+    <br>
+    <img id="img" src="#" />
+    <br>
+    <div id="pred"></div>
+</body>
+
+<style>
+    img{
+        max-width: 300px;
+    }
+</style>
+
+<script>
+    labels=["Roña","Trips","Marceño","Rojizo"]
+    pred=document.getElementById("pred");
+
+    async function send(){
+        let image = document.getElementById("file").files[0];
+        let formData = new FormData();
+
+        formData.append("file", image);
+
+
+        var requestOptions = {
+            method: 'POST',
+            body: formData,
+        };
+
+        fetch("https://clasificacion-aguacate.herokuapp.com/upload", requestOptions)
+        .then(response => response.json())
+        .then(data => 
+            prediccion(data)
+        )
+        .catch(error => console.log('error', error));
+    }
+
+    function prediccion(array){
+        
+        pred.innerHTML=""
+
+        for (let index = 0; index < array.length; index++) {
+            console.log(labels[index]+" : "+(array[index]*100)+" %")
+
+            pred.innerHTML+="<h3>"+labels[index]+" :</h3>"+(array[index]*100)+" % </br>"
+        }
+    } //Predicción
+
+    function readURL(input) {
+        pred.innerHTML="";
+        $('img').attr('src',"");
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+    
+            reader.onload = function (e) {
+                $('#img').attr('src', e.target.result)
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+</script>
+</html>
