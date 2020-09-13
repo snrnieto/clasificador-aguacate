@@ -23,7 +23,7 @@ cnn.load_weights(pesos_modelo)
 
 @app.route('/')
 def index():
-    return "Api clasificación de patologías de aguacate hass"
+    return "Api funcionando correctamente"
 
 @app.route('/upload',methods = ['POST'])
 def upload():
