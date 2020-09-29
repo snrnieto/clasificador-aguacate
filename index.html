@@ -23,7 +23,7 @@
 </style>
 
 <script>
-    labels=["Roña","Trips","Marceño","Rojizo"]
+    labels=["Marceño","Rojizo","Roña","Trips"]
     pred=document.getElementById("pred");
 
     async function send(){
@@ -38,7 +38,7 @@
             body: formData,
         };
 
-        fetch("https://clasificacion-aguacate.herokuapp.com/upload", requestOptions)
+        fetch("https://clasificacion-aguacate.herokuapp.com/fruto", requestOptions)
         .then(response => response.json())
         .then(data => 
             prediccion(data)
