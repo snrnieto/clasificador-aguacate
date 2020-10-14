@@ -29,7 +29,7 @@
         .then(data => 
             console.log(data)
         )
-        .catch(error => console.log('error', error));
+        .catch(error => {console.log('error', error);console.log(data)});
     };
     
     labels=["Marceño","Rojizo","Roña","Trips"]
