@@ -25,14 +25,11 @@
 <script>
     window.onload = function() {
          fetch("https://clasificacion-aguacate.herokuapp.com")
-        .then(response => response.json())
+        .then(response => response)
         .then(data => 
             console.log(data)
         )
-        .catch(error => {
-             console.log('error', error)
-             console.log(data)
-         });
+        .catch(error => console.log('error', error));
     };
     
     labels=["Marceño","Rojizo","Roña","Trips"]
